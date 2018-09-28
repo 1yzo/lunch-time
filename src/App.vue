@@ -40,7 +40,7 @@ export default {
         addUser () {
             if (this.newUserText.trim()) {
                 // Add user to list and persist if not already present
-                if (!this.users.map((user) => user.name).includes(this.newUserText)) {
+                if (!this.users.map((user) => user.name.toLowerCase()).includes(this.newUserText.toLowerCase())) {
                     const newUser = { 
                         id: uuid(),
                         name: this.newUserText,
