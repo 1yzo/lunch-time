@@ -1,11 +1,13 @@
 <template>
-    <input
-        type="text"
-        :value="value" 
-        placeholder="Join the list..."
-        @input="$emit('input', $event.target.value)"
-        @keyup.enter="$emit('submit')"
-    />
+    <div id="input-container">
+        <input
+            type="text"
+            :value="value" 
+            placeholder="Enter name..."
+            @input="$emit('input', $event.target.value)"
+            @keyup.enter="$emit('submit')"
+        />
+    </div>
 </template>
 
 <script>
@@ -18,8 +20,8 @@ export default {
 
 <style lang="scss" scoped>
     input {
-        font-size: 30px;
         width: 100%;
+        font-size: 30px;
         padding: 10px;
     }
 </style>

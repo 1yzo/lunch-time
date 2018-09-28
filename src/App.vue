@@ -4,11 +4,13 @@
             <h1 class="container">Lunch Time</h1>
         </div>
         <div class="container">
-            <UserInput v-model="newUserText" @submit="addUser"/>
-            <UserList :users="users" />
-            <div class="options-container">
-                <button>Get Coffee</button>
-                <button>Get Lunch</button>
+            <UserInput v-if="!currentUserName" v-model="newUserText" @submit="addUser"/>
+            <div v-else>
+                <UserList :users="users" />
+                <div class="options-container">
+                    <button @click="getCoffee">Get Coffee</button>
+                    <button @click="getLunch">Get Lunch</button>
+                </div>
             </div>
         </div>
     </div>
@@ -24,22 +26,43 @@ export default {
         return {
             users: [],
             newUserText: '',
+            currentUserName: ''
         };
+    },
+    created: function () {
+        // Load existing users
+        const existingUsers = JSON.parse(localStorage.getItem('users'));
+        if (existingUsers) {
+            this.users = existingUsers;
+        }
     },
     methods: {
         addUser () {
             if (this.newUserText.trim()) {
-                this.users = [
-                    ...this.users,
-                    { 
+                // Add user to list and persist if not already present
+                if (!this.users.map((user) => user.name).includes(this.newUserText)) {
+                    const newUser = { 
                         id: uuid(),
                         name: this.newUserText,
                         coffees: [],
                         lunches: []
                     }
-                ];
+                    localStorage.setItem('users', JSON.stringify([...this.users, newUser]));
+                    this.users = [
+                        ...this.users,
+                        newUser
+                    ];
+                }
+                
+                this.currentUserName = this.newUserText; 
                 this.newUserText = '';
             }
+        },
+        getCoffee () {
+           
+        },
+        getLunch () {
+            console.log('Get lunch');
         }
     },
     components: {
@@ -57,11 +80,15 @@ html, body {
 
 * {
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 .header {
+    font-size: 20px;
     background: rgba(33, 104, 196, 0.527);
     margin-bottom: 50px;
+    padding: 30px 0 10px 0;
 }
 
 .container {
