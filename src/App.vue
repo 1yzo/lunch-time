@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="header">
-            <h1 class="container">Lunch Time</h1>
+            <div class="container">
+                <h1>Lunch Time</h1>
+                <div v-if="currentUserName">Welcome, {{ currentUserName }}</div>
+            </div>
         </div>
         <div class="container">
             <UserInput v-if="!currentUserName" v-model="newUserText" @submit="addUser"/>
@@ -84,11 +87,15 @@ html, body {
 
 }
 
+h1 {
+    margin: 0;
+}
+
 .header {
     font-size: 20px;
     background: rgba(33, 104, 196, 0.527);
-    margin-bottom: 50px;
     padding: 30px 0 10px 0;
+    margin-bottom: 50px;
 }
 
 .container {
