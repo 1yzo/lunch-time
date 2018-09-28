@@ -32,6 +32,11 @@ export default {
             currentUserName: ''
         };
     },
+    computed: {
+        currentUser: function () {
+            return this.users.find(({ name }) => name === this.currentUserName.toLowerCase());
+        }
+    },
     created: function () {
         // Load existing users
         const existingUsers = JSON.parse(localStorage.getItem('users'));
@@ -46,7 +51,7 @@ export default {
                 if (!this.users.map((user) => user.name.toLowerCase()).includes(this.newUserText.toLowerCase())) {
                     const newUser = { 
                         id: uuid(),
-                        name: this.newUserText,
+                        name: this.newUserText.toLowerCase(),
                         coffees: [],
                         lunches: []
                     }
@@ -62,7 +67,29 @@ export default {
             }
         },
         getCoffee () {
-           
+           const partner = this.users.find((user) => user.name !== this.currentUserName.toLowerCase() && !user.coffees.includes(this.currentUser.id));
+           if (partner) {
+               // Add eachother's names to respective coffees array then persist
+               this.users = this.users.map((user) => {
+                   if (user.id === this.currentUser.id) {
+                       return {
+                           ...user,
+                           coffees: [...user.coffees, partner.id]
+                       };
+                   } else if (user.id === partner.id) {
+                       return {
+                           ...user,
+                           coffees: [...user.coffees, this.currentUser.id]
+                       };
+                   } else {
+                       return user;
+                   }
+               });
+               localStorage.setItem('users', JSON.stringify(this.users));
+               alert(partner.name);
+           } else {
+               alert('ALrdy went out with everyone');
+           }
         },
         getLunch () {
             console.log('Get lunch');
@@ -88,7 +115,7 @@ html, body {
 }
 
 h1 {
-    margin: 0;
+    margin: 0 0 10px 0;
 }
 
 .header {
