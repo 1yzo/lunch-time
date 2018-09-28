@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <Modal :is-visible="showModal" :id-list="selectedIds" />
+        <Modal :is-visible="showModal" :id-list="selectedIds" @closeModal="showModal = false" />
     </div>
 </template>
 
