@@ -1,7 +1,6 @@
 <template>
-    <div class="user-card-container">
+    <div class="user-list">
         <UserListItem 
-            class="user-card"
             v-for="user in users"
             :key="user.id"
             v-bind="user"
@@ -21,8 +20,9 @@ export default {
 </script>
 
 <style lang="scss">
-.user-card-container {
+.user-list {
     background: #eee;
-    height: 500px;
+    height: 400px;
+    overflow-y: auto;
 }
 </style>

@@ -6,6 +6,10 @@
         <div class="container">
             <UserInput v-model="newUserText" @submit="addUser"/>
             <UserList :users="users" />
+            <div class="options-container">
+                <button>Get Coffee</button>
+                <button>Get Lunch</button>
+            </div>
         </div>
     </div>
 </template>
@@ -24,16 +28,18 @@ export default {
     },
     methods: {
         addUser () {
-            this.users = [
-                ...this.users,
-                { 
-                    id: uuid(),
-                    name: this.newUserText,
-                    coffees: [],
-                    lunches: []
-                }
-            ];
-            this.newUserText = '';
+            if (this.newUserText.trim()) {
+                this.users = [
+                    ...this.users,
+                    { 
+                        id: uuid(),
+                        name: this.newUserText,
+                        coffees: [],
+                        lunches: []
+                    }
+                ];
+                this.newUserText = '';
+            }
         }
     },
     components: {
@@ -49,6 +55,10 @@ html, body {
     padding: 0;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .header {
     background: rgba(33, 104, 196, 0.527);
     margin-bottom: 50px;
@@ -57,5 +67,14 @@ html, body {
 .container {
     max-width: 500px;
     margin: 0 auto;
+}
+
+.options-container {
+    display: flex;
+    button {
+        width: 50%;
+        font-size: 20px;
+        padding: 10px;
+    }
 }
 </style>
