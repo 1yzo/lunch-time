@@ -16,6 +16,7 @@
                 </div>
             </div>
         </div>
+        <Modal :is-visible="showModal" :id-list="selectedIds" />
     </div>
 </template>
 
@@ -23,6 +24,7 @@
 import uuid from 'uuid/v4';
 import UserInput from './components/UserInput';
 import UserList from './components/UserList';
+import Modal from './components/Modal';
 
 export default {
     data: function() {
@@ -30,8 +32,8 @@ export default {
             users: [],
             newUserText: '',
             currentUserName: '',
-            lunchGroup: [],
-            coffeePartner: ''
+            selectedIds: [],
+            showModal: false
         };
     },
     computed: {
@@ -88,7 +90,8 @@ export default {
                    }
                });
                localStorage.setItem('users', JSON.stringify(this.users));
-               alert(partner.name);
+               this.selectedIds = [partner.id];
+               this.showModal = true;
            } else {
                alert('ALrdy went out with everyone');
            }
@@ -172,12 +175,17 @@ export default {
     },
     components: {
         UserInput,
-        UserList
+        UserList,
+        Modal
     }
 };
 </script>
 
 <style lang="scss">
+body {
+    position: relative;
+}
+
 html, body {
     margin: 0;
     padding: 0;
