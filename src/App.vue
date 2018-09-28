@@ -29,7 +29,9 @@ export default {
         return {
             users: [],
             newUserText: '',
-            currentUserName: ''
+            currentUserName: '',
+            lunchGroup: [],
+            coffeePartner: ''
         };
     },
     computed: {
@@ -67,7 +69,7 @@ export default {
             }
         },
         getCoffee () {
-           const partner = this.users.find((user) => user.name !== this.currentUserName.toLowerCase() && !user.coffees.includes(this.currentUser.id));
+           const partner = this.users.find((user) => user.id !== this.currentUser.id && !user.coffees.includes(this.currentUser.id));
            if (partner) {
                // Add eachother's names to respective coffees array then persist
                this.users = this.users.map((user) => {
@@ -92,7 +94,80 @@ export default {
            }
         },
         getLunch () {
-            console.log('Get lunch');
+            let availableUsers = this.users.filter((user) => user.id !== this.currentUser.id);
+            const group = [];
+            // Attempt to fill with previously unmatched users
+            for (let user of availableUsers) {
+                if (!user.lunches.includes(this.currentUser.id)) {
+                    group.push(user.id);
+                    availableUsers = availableUsers.filter((curr) => curr.id !== user.id);
+                }
+                if (group.length === 4) {
+                    // Update users' lunches array then persist
+                    this.users = this.users.map((user) => {
+                        if (user.id === this.currentUser.id) {
+                            return {
+                                ...user,
+                                lunches: [...user.lunches, ...group]
+                            };
+                        } else if (group.includes(user.id)) {
+                            return {
+                                ...user,
+                                lunches: [...user.lunches, ...group.filter((curr) => curr !== user.id), this.currentUser.id]
+                            };
+                        } else {
+                            return user;
+                        }
+                    });
+                    localStorage.setItem('users', JSON.stringify(this.users));
+                    console.log(this.users.map((user) => {
+                    if (group.includes(user.id)) {
+                        return user.name
+                    }
+                }));
+                    return;
+                }
+            }
+            // Fill remaining spots with random users
+            if (group.length + availableUsers.length <= 4) {
+                for (let user of availableUsers) {
+                    group.push(user.id);
+                }
+            } else {
+                while (group.length < 4) {
+                    const randomIndex = Math.floor(Math.random() * ((availableUsers.length - 1) - 0) + 0);
+                    const randomUserId = availableUsers[randomIndex].id;
+                    if (!group.includes(randomUserId)) {
+                        group.push(randomUserId);
+                    }
+                }
+            }
+            if (group.length < 2) {
+                alert('Not enough people for lunch');
+            } else {
+                // Update users' lunches array then persist
+                this.users = this.users.map((user) => {
+                    if (user.id === this.currentUser.id) {
+                        return {
+                            ...user,
+                            lunches: [...user.lunches, ...group]
+                        };
+                    } else if (group.includes(user.id)) {
+                        return {
+                            ...user,
+                            lunches: [...user.lunches, ...group.filter((curr) => curr !== user.id), this.currentUser.id]
+                        };
+                    } else {
+                        return user;
+                    }
+                });
+                localStorage.setItem('users', JSON.stringify(this.users));
+                console.log(this.users.map((user) => {
+                    if (group.includes(user.id)) {
+                        return user.name
+                    }
+                }));
+            }
         }
     },
     components: {

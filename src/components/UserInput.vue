@@ -4,6 +4,7 @@
             type="text"
             :value="value" 
             placeholder="Enter name..."
+            autofocus
             @input="$emit('input', $event.target.value)"
             @keyup.enter="$emit('submit')"
         />
