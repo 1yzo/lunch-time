@@ -1,27 +1,27 @@
 export const coffeeUsers  = [{
     id: '1',
     name: 'first',
-    coffees: [],
+    coffees: ['6'],
     lunches: []
 }, {
     id: '2',
     name: 'second',
-    coffees: [],
+    coffees: ['6'],
     lunches: []
 }, {
     id: '3',
     name: 'third',
-    coffees: [],
+    coffees: ['6'],
     lunches: []
 }, {
     id: '4',
     name: 'fourth',
-    coffees: [],
+    coffees: ['6'],
     lunches: []
 }, {
     id: '5',
     name: 'fifth',
-    coffees: [],
+    coffees: ['6'],
     lunches: []
 }, {
     id: '6',
@@ -59,15 +59,15 @@ export const lunchUsers = [{
     id: '6',
     name: 'sixth',
     coffees: [],
-    lunches: []
+    lunches: ['8']
 }, {
     id: '7',
     name: 'seventh',
     coffees: [],
-    lunches: []
+    lunches: ['8']
 }, {
     id: '8',
-    name: 'eighth',
+    name: 'likes lunch',
     coffees: [],
-    lunches: []
+    lunches: ['6', '7']
 }];

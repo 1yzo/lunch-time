@@ -94,10 +94,10 @@ describe('App', () => {
             wrapper.findAll('button').at(0).trigger('click');
             expect(wrapper.vm.users.slice(0, 2)).toEqual([{
                     ...coffeeUsers[0],
-                    coffees: ['2']
+                    coffees: expect.arrayContaining(['2'])
                 }, {
                     ...coffeeUsers[1],
-                    coffees: ['1']
+                    coffees: expect.arrayContaining(['1'])
                 }
             ]);     
         });
