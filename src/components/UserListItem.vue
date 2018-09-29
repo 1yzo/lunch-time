@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../variables';
+@import '../styles//variables';
 
 .user-list-item {
     padding: 20px;

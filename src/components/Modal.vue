@@ -61,6 +61,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../styles/variables';
+
 .modal-mask {
     position: fixed;
     top: 0;
@@ -101,7 +103,7 @@ export default {
 }
 
 .name {
-    color: rgba(54, 69, 237, 0.637);
+    color: $blue;
     margin-bottom: 3px;
 }
 

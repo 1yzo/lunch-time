@@ -185,11 +185,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import './base';
-@import './variables';
+@import './styles//base';
+@import './styles/variables';
 
 h1 {
-    margin: 0 0 10px 0;
+    margin: 0 0 10px -5;
 }
 
 .header {
@@ -224,12 +224,20 @@ h1 {
         color: rgb(243, 244, 247);
         font-size: 25px;
         box-shadow: 0px 1px 1px $blue;
+        transition: background 300ms ease-in-out;
     }
+    
     #coffee {
         border-bottom-left-radius: 10px;
+        &:hover {
+            background: $dark-blue;
+        }
     }
     #lunch {
         border-bottom-right-radius: 10px;
+        &:hover {
+            background: $dark-blue;
+        }
     }
 }
 </style>
