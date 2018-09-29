@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Current user exists renders correctly 1`] = `
+<div>
+  <div
+    class="header"
+  >
+    <div
+      class="container"
+    >
+      <h1>
+        Lunch Time
+      </h1>
+       
+      <div>
+        Welcome, Name
+      </div>
+    </div>
+  </div>
+   
+  <div
+    class="container"
+  >
+    <div>
+      <userlist-stub
+        users="[object Object]"
+      />
+       
+      <div
+        class="options-container"
+      >
+        <button>
+          Get Coffee
+        </button>
+         
+        <button>
+          Get Lunch
+        </button>
+      </div>
+    </div>
+  </div>
+   
+  <modal-stub
+    error=""
+    idlist=""
+    users="[object Object]"
+  />
+</div>
+`;
+
+exports[`App No current user renders correctly 1`] = `
+<div>
+  <div
+    class="header"
+  >
+    <div
+      class="container"
+    >
+      <h1>
+        Lunch Time
+      </h1>
+       
+      <!---->
+    </div>
+  </div>
+   
+  <div
+    class="container"
+  >
+    <userinput-stub
+      value=""
+    />
+  </div>
+   
+  <modal-stub
+    error=""
+    idlist=""
+    users=""
+  />
+</div>
+`;

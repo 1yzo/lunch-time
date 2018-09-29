@@ -4,21 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch",
     "start": "webpack-dev-server --config webpack.config.js --open"
   },
   "author": "Osman Ali",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.1.0",
+    "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
+    "@vue/test-utils": "^1.0.0-beta.25",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
+    "jest": "^23.6.0",
     "node-sass": "^4.9.3",
+    "regenerator-runtime": "^0.12.1",
     "sass-loader": "^7.1.0",
+    "vue-jest": "^2.6.0",
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
+    "vue-test-utils": "^1.0.0-beta.11",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.9"
@@ -27,5 +34,18 @@
     "uuid": "^3.3.2",
     "vue": "^2.5.17",
     "vue-template-compiler": "^2.5.17"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^vue$": "vue/dist/vue.common.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    }
   }
 }

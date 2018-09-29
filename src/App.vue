@@ -44,16 +44,16 @@ export default {
             error: ''
         };
     },
-    computed: {
-        currentUser: function () {
-            return this.users.find(({ name }) => name === this.currentUserName.toLowerCase());
-        }
-    },
     created: function () {
         // Load existing users
         const existingUsers = JSON.parse(localStorage.getItem('users'));
         if (existingUsers) {
             this.users = existingUsers;
+        }
+    },
+    computed: {
+        currentUser: function () {
+            return this.users.find(({ name }) => name === this.currentUserName.toLowerCase());
         }
     },
     methods: {
@@ -79,7 +79,7 @@ export default {
             }
         },
         getCoffee () {
-           const partner = this.users.find((user) => user.id !== this.currentUser.id && !user.coffees.includes(this.currentUser.id));
+           const partner = this.users.find((user) => user.id !== this.currentUser.id && !this.currentUser.coffees.includes(user.id));
            if (partner) {
                // Add eachother's names to respective coffees array then persist
                this.users = this.users.map((user) => {
