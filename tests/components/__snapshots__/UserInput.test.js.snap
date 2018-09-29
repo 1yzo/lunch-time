@@ -4,9 +4,15 @@ exports[`UserInput renders correctly 1`] = `
 <div
   id="input-container"
 >
+  <label
+    for="user-input"
+  >
+    What's your name?
+  </label>
+   
   <input
     autofocus="autofocus"
-    placeholder="Enter name..."
+    id="user-input"
     type="text"
   />
 </div>

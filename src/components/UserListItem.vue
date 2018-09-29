@@ -15,7 +15,8 @@ export default {
 <style lang="scss">
 .user-list-item {
     padding: 20px;
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
 }
 </style>
 

@@ -9,19 +9,17 @@ exports[`App Current user exists renders correctly 1`] = `
       class="container"
     >
       <h1>
-        Lunch Time
+        📋 Lunch Time
       </h1>
-       
-      <div>
-        Welcome, Name
-      </div>
     </div>
   </div>
    
   <div
     class="container"
   >
-    <div>
+    <div
+      class="content"
+    >
       <userlist-stub
         users="[object Object]"
       />
@@ -29,11 +27,15 @@ exports[`App Current user exists renders correctly 1`] = `
       <div
         class="options-container"
       >
-        <button>
+        <button
+          id="coffee"
+        >
           Get Coffee
         </button>
          
-        <button>
+        <button
+          id="lunch"
+        >
           Get Lunch
         </button>
       </div>
@@ -57,10 +59,8 @@ exports[`App No current user renders correctly 1`] = `
       class="container"
     >
       <h1>
-        Lunch Time
+        📋 Lunch Time
       </h1>
-       
-      <!---->
     </div>
   </div>
    

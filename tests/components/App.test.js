@@ -33,7 +33,7 @@ describe('App', () => {
             wrapper.find(UserInput).vm.$emit('submit');
             expect(wrapper.vm.users[0]).toEqual({
                 id: expect.any(String),
-                name: 'new user',
+                name: 'New User',
                 coffees: [],
                 lunches: []
             });
@@ -74,7 +74,7 @@ describe('App', () => {
             wrapper = shallowMount(App);
             wrapper.setData({
                 users: coffeeUsers,
-                currentUserName: 'First'
+                currentUserName: 'first'
             });
         });
 
@@ -84,7 +84,7 @@ describe('App', () => {
         });
 
         it('sets error if user already had coffee with everyone', () => {
-            wrapper.setData({ currentUserName: 'Coffee Master' });
+            wrapper.setData({ currentUserName: 'coffee master' });
             wrapper.findAll('button').at(0).trigger('click');
             expect(wrapper.vm.error).toBeTruthy();
             expect(wrapper.vm.selectedIds).toEqual([]);
@@ -109,7 +109,7 @@ describe('App', () => {
             wrapper = shallowMount(App);
             wrapper.setData({
                 users: lunchUsers,
-                currentUserName: 'First'
+                currentUserName: 'first'
             });
         });
 

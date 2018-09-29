@@ -21,7 +21,6 @@ export default {
 
 <style lang="scss">
 .user-list {
-    background: #eee;
     height: 400px;
     overflow-y: auto;
 }

@@ -5,10 +5,13 @@
                 <i class="fas fa-times close-button" @click="$emit('closeModal')"></i>
                 <!-- render coffee message if idList.length === 1 otherwise lunch message and pass optional prop for error -->
                 <div v-if="error" class="error">{{ error }}</div>
-                <div v-if="names && names.length === 1">Get coffee with {{ names[0] }}</div>
-                <div v-if="names && names.length > 1" class="names-container">
-                    <div class="name">{{ currentUserName }}</div>
-                    <div class="name" v-for="name in names" :key="name">{{ name }}</div>
+                <div v-if="names && names.length === 1" class="title">Get coffee with <span class="name">{{ names[0] }}</span></div>
+                <div v-if="names && names.length > 1">
+                    <div class="title">Today's lunch group</div>
+                    <div class="names-container">
+                        <div class="name">{{ currentUserName }}</div>
+                        <div class="name" v-for="name in names" :key="name">{{ name }}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,16 +72,41 @@ export default {
     width: 300px;
     height: 300px;
     background: white;
-    box-shadow: 0 1px 4px gray;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
+    box-shadow: 0 1px 10px  rgba(0, 0, 0, 0.199);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    overflow: hidden;
+}
+
+.title {
+    font-size: 25px;
+    margin-bottom: 20px;
+    word-break: break-all;
+}
+
+.names-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    color: rgba(54, 69, 237, 0.637);
+    margin-bottom: 3px;
 }
 
 .close-button {
+    position: absolute;
     cursor: pointer;
-    margin-bottom: 20px;
+    top: 15px;
+    left: 15px;
 }
 
 .fade-enter-active, .fade-leave-active {

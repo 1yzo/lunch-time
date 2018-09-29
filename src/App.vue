@@ -2,17 +2,16 @@
     <div>
         <div class="header">
             <div class="container">
-                <h1>Lunch Time</h1>
-                <div v-if="currentUserName">Welcome, {{ currentUserName }}</div>
+                <h1>📋 Lunch Time</h1>
             </div>
         </div>
         <div class="container">
             <UserInput v-if="!currentUserName" v-model="newUserText" @submit="addUser"/>
-            <div v-else>
+            <div v-else class="content">
                 <UserList :users="users" />
                 <div class="options-container">
-                    <button @click="getCoffee">Get Coffee</button>
-                    <button @click="getLunch">Get Lunch</button>
+                    <button id="coffee" @click="getCoffee">Get Coffee</button>
+                    <button id="lunch" @click="getLunch">Get Lunch</button>
                 </div>
             </div>
         </div>
@@ -53,17 +52,17 @@ export default {
     },
     computed: {
         currentUser: function () {
-            return this.users.find(({ name }) => name === this.currentUserName.toLowerCase());
+            return this.users.find(({ name }) => name === this.currentUserName);
         }
     },
     methods: {
         addUser () {
             if (this.newUserText.trim()) {
                 // Add user to list and persist if not already present
-                if (!this.users.map((user) => user.name.toLowerCase()).includes(this.newUserText.toLowerCase())) {
+                if (!this.users.map((user) => user.name).includes(this.newUserText)) {
                     const newUser = { 
                         id: uuid(),
-                        name: this.newUserText.toLowerCase(),
+                        name: this.newUserText,
                         coffees: [],
                         lunches: []
                     }
@@ -81,7 +80,7 @@ export default {
         getCoffee () {
            const partner = this.users.find((user) => user.id !== this.currentUser.id && !this.currentUser.coffees.includes(user.id));
            if (partner) {
-               // Add eachother's names to respective coffees array then persist
+               // Add eachother's ids to respective coffees array then persist
                this.users = this.users.map((user) => {
                    if (user.id === this.currentUser.id) {
                        return {
@@ -186,43 +185,52 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-    position: relative;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-}
-
-* {
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-
-}
+@import './base';
 
 h1 {
     margin: 0 0 10px 0;
 }
 
+
+
 .header {
     font-size: 20px;
-    background: rgba(33, 104, 196, 0.527);
     padding: 30px 0 10px 0;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.199);
 }
 
 .container {
     max-width: 500px;
     margin: 0 auto;
+    padding: 0 20px;
+}
+
+.content {
+    box-shadow: 0 1px 10px  rgba(0, 0, 0, 0.199);
+    border-radius: 10px;
 }
 
 .options-container {
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    width: 100%;
     button {
         width: 50%;
         font-size: 20px;
         padding: 10px;
+        border: none;
+        background: rgba(54, 69, 237, 0.637);
+        color: rgb(243, 244, 247);
+        font-size: 25px;
+        box-shadow: 0px 1px 1px rgba(54, 69, 237, 0.637);
+    }
+    #coffee {
+        border-bottom-left-radius: 10px;
+    }
+    #lunch {
+        border-bottom-right-radius: 10px;
     }
 }
 </style>

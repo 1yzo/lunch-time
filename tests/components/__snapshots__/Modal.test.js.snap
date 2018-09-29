@@ -14,8 +14,15 @@ exports[`Modal renders coffee partner if idList contains only 1 id 1`] = `
      
     <!---->
      
-    <div>
-      Get coffee with first
+    <div
+      class="title"
+    >
+      Get coffee with 
+      <span
+        class="name"
+      >
+        first
+      </span>
     </div>
      
     <!---->
@@ -39,34 +46,42 @@ exports[`Modal renders lunch group if idList contains multiple ids 1`] = `
      
     <!---->
      
-    <div
-      class="names-container"
-    >
+    <div>
       <div
-        class="name"
+        class="title"
       >
-        Current User
+        Today's lunch group
       </div>
        
       <div
-        class="name"
+        class="names-container"
       >
-        first
-      </div>
-      <div
-        class="name"
-      >
-        second
-      </div>
-      <div
-        class="name"
-      >
-        third
-      </div>
-      <div
-        class="name"
-      >
-        fourth
+        <div
+          class="name"
+        >
+          Current User
+        </div>
+         
+        <div
+          class="name"
+        >
+          first
+        </div>
+        <div
+          class="name"
+        >
+          second
+        </div>
+        <div
+          class="name"
+        >
+          third
+        </div>
+        <div
+          class="name"
+        >
+          fourth
+        </div>
       </div>
     </div>
   </div>
