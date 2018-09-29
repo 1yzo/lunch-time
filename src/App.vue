@@ -8,7 +8,7 @@
         <div class="container">
             <UserInput v-if="!currentUserName" v-model="newUserText" @submit="addUser"/>
             <div v-else class="content">
-                <UserList :users="users" />
+                <UserList :users="users" :current-user-id="currentUser && currentUser.id"/>
                 <div class="options-container">
                     <button id="coffee" @click="getCoffee">Get Coffee</button>
                     <button id="lunch" @click="getLunch">Get Lunch</button>
@@ -186,12 +186,11 @@ export default {
 
 <style lang="scss">
 @import './base';
+@import './variables';
 
 h1 {
     margin: 0 0 10px 0;
 }
-
-
 
 .header {
     font-size: 20px;
@@ -221,10 +220,10 @@ h1 {
         font-size: 20px;
         padding: 10px;
         border: none;
-        background: rgba(54, 69, 237, 0.637);
+        background: $blue;
         color: rgb(243, 244, 247);
         font-size: 25px;
-        box-shadow: 0px 1px 1px rgba(54, 69, 237, 0.637);
+        box-shadow: 0px 1px 1px $blue;
     }
     #coffee {
         border-bottom-left-radius: 10px;

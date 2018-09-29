@@ -15,14 +15,17 @@ exports[`Modal renders coffee partner if idList contains only 1 id 1`] = `
     <!---->
      
     <div
-      class="title"
+      class="title names-container"
     >
-      Get coffee with 
-      <span
+      <div>
+        Get coffee with
+      </div>
+       
+      <div
         class="name"
       >
         first
-      </span>
+      </div>
     </div>
      
     <!---->

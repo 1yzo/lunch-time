@@ -5,7 +5,10 @@
                 <i class="fas fa-times close-button" @click="$emit('closeModal')"></i>
                 <!-- render coffee message if idList.length === 1 otherwise lunch message and pass optional prop for error -->
                 <div v-if="error" class="error">{{ error }}</div>
-                <div v-if="names && names.length === 1" class="title">Get coffee with <span class="name">{{ names[0] }}</span></div>
+                <div v-if="names && names.length === 1" class="title names-container">
+                    <div>Get coffee with</div>
+                    <div class="name">{{ names[0] }}</div>
+                </div>
                 <div v-if="names && names.length > 1">
                     <div class="title">Today's lunch group</div>
                     <div class="names-container">

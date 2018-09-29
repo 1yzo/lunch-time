@@ -3,7 +3,8 @@
         <UserListItem 
             v-for="user in users"
             :key="user.id"
-            v-bind="user"
+            :user="user"
+            :current-user-id="currentUserId"
         />
     </div>
 </template>
@@ -14,7 +15,8 @@ import UserListItem  from './UserListItem';
 export default {
     components: { UserListItem },
     props: {
-        users: Array
+        users: Array,
+        currentUserId: String
     }
 };
 </script>

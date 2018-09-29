@@ -94,10 +94,10 @@ describe('App', () => {
             wrapper.findAll('button').at(0).trigger('click');
             expect(wrapper.vm.users.slice(0, 2)).toEqual([{
                     ...coffeeUsers[0],
-                    coffees: [2]
+                    coffees: ['2']
                 }, {
                     ...coffeeUsers[1],
-                    coffees: [1]
+                    coffees: ['1']
                 }
             ]);     
         });
@@ -123,27 +123,27 @@ describe('App', () => {
         it('prioritizes users who have never had lunch together', () => {
             wrapper.findAll('button').at(1).trigger('click');
             wrapper.vm.users.push({
-                id: 99,
+                id: '99',
                 name: 'new user',
                 coffees: [],
                 lunches: []
             }, {
-                id: 100,
+                id: '100',
                 name: 'new user 2',
                 coffees: [],
                 lunches: []
             });
             wrapper.findAll('button').at(1).trigger('click');
-            expect(wrapper.vm.selectedIds).toContain(99, 100);
+            expect(wrapper.vm.selectedIds).toContain('99', '100');
             expect(wrapper.vm.selectedIds.length).toBe(4);            
         });
 
         it("correctly updates users' lunches arrays", () => {
             wrapper.setData({ users: lunchUsers.slice(0, 3) });
             wrapper.findAll('button').at(1).trigger('click');
-            expect(wrapper.vm.users[0].lunches).toContain(2, 3);
-            expect(wrapper.vm.users[1].lunches).toContain(1, 3);
-            expect(wrapper.vm.users[2].lunches).toContain(1, 2);
+            expect(wrapper.vm.users[0].lunches).toContain('2', '3');
+            expect(wrapper.vm.users[1].lunches).toContain('1', '3');
+            expect(wrapper.vm.users[2].lunches).toContain('1', '2');
         });
 
         it("never selects more than 4 ids", () => {
