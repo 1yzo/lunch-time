@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserListItem renders correctly 1`] = `
+<div>
+  <div
+    class="user-list-item"
+  >
+    
+  </div>
+</div>
+`;
