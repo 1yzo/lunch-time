@@ -122,6 +122,7 @@ export default {
                     return;
                 }
             }
+            console.log('no uniques moving on to random');
             // Fill remaining spots with random user ids
             if (group.length + availableUsers.length <= 4) {
                 for (let user of availableUsers) {
@@ -129,7 +130,8 @@ export default {
                 }
             } else {
                 while (group.length < 4) {
-                    const randomIndex = Math.floor(Math.random() * ((availableUsers.length - 1) - 0) + 0);
+                    const randomIndex = Math.floor(Math.random() * ((availableUsers.length - 1) - 0 + 1) + 0);
+                    console.log(randomIndex);
                     const randomUserId = availableUsers[randomIndex].id;
                     if (!group.includes(randomUserId)) {
                         group.push(randomUserId);
