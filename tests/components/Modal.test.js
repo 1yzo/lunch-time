@@ -62,4 +62,14 @@ describe('Modal', () => {
         wrapper.find('.close-button').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('closeModal');
     });
+
+    it('emits closeModal on modal-mask click', () => {
+        const wrapper = createWrapper({
+            isVisible: true,
+            idList: coffeeUsers.slice(0, 4).map((user) => user.id),
+            users: coffeeUsers
+        });
+        wrapper.find('.modal-mask').trigger('click');
+        expect(wrapper.emitted()).toHaveProperty('closeModal');
+    });
 });

@@ -1,6 +1,6 @@
 <template>
     <transition name="fade">
-        <div v-if="isVisible" class="modal-mask">
+        <div v-if="isVisible" class="modal-mask" @click="$emit('closeModal')">
             <div class="modal">
                 <i class="fas fa-times close-button" @click="$emit('closeModal')"></i>
                 <!-- render coffee message if idList.length === 1 otherwise lunch message and pass optional prop for error -->
@@ -34,12 +34,6 @@ export default {
         currentUserName: String
     },
     created: function () {
-        window.addEventListener('click', (e) => {
-            if (e.target.className === "modal-mask") {
-                this.$emit('closeModal');
-            }
-        });
-
         window.addEventListener('keyup', (e) => {
             if (e.keyCode === 27) {
                 if (this.isVisible) {
