@@ -3,7 +3,12 @@
         <div v-if="isVisible" class="modal-mask">
             <div class="modal">
                 <i class="fas fa-times close-button" @click="$emit('closeModal')"></i>
-                <div v-for="id in idList" :key="id">{{ id }}</div>
+                <!-- render coffee message if idList.length === 1 otherwise lunch message and pass optional prop for error -->
+                <div v-if="error" class="error">{{ error }}</div>
+                <div v-if="names && names.length === 1">Get coffee with {{ names[0] }}</div>
+                <div v-if="names && names.length > 1" class="names-container">
+                    <div class="name" v-for="name in names" :key="name">{{ name }}</div>
+                </div>
             </div>
         </div>
     </transition>
@@ -19,16 +24,35 @@ export default {
         idList: {
             type: Array,
             required: true
+        },
+        error: String,
+        users: {
+            type: Array,
+            required: true
         }
     },
     created: function () {
-        window.addEventListener('click', this.checkClick);
-    },
-    methods: {
-        checkClick: function (e) {
+        window.addEventListener('click', (e) => {
             if (e.target.className === "modal-mask") {
                 this.$emit('closeModal');
             }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 27) {
+                if (this.isVisible) {
+                    this.$emit('closeModal');
+                }
+            }
+        });
+    },
+    computed: {
+        names: function () {
+            return this.users.reduce((acc, curr) => {
+                if (this.idList.includes(curr.id)) {
+                    return acc.concat(curr.name);
+                } else return acc;
+            }, []);
         }
     }
 };
@@ -58,6 +82,7 @@ export default {
 
 .close-button {
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 .fade-enter-active, .fade-leave-active {

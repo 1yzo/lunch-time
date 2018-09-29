@@ -16,7 +16,13 @@
                 </div>
             </div>
         </div>
-        <Modal :is-visible="showModal" :id-list="selectedIds" @closeModal="showModal = false" />
+        <Modal
+            :is-visible="showModal"
+            :id-list="selectedIds"
+            @closeModal="closeModal()"
+            :error="error"
+            :users="users"
+        />
     </div>
 </template>
 
@@ -33,7 +39,8 @@ export default {
             newUserText: '',
             currentUserName: '',
             selectedIds: [],
-            showModal: false
+            showModal: false,
+            error: ''
         };
     },
     computed: {
@@ -93,13 +100,14 @@ export default {
                this.selectedIds = [partner.id];
                this.showModal = true;
            } else {
-               alert('ALrdy went out with everyone');
+               this.error = "You've already caffeinated with everyone! Try lunch instead.";
+               this.showModal = true;
            }
         },
         getLunch () {
             let availableUsers = this.users.filter((user) => user.id !== this.currentUser.id);
             const group = [];
-            // Attempt to fill with previously unmatched users
+            // Attempt to fill group with previously unmatched user ids
             for (let user of availableUsers) {
                 if (!user.lunches.includes(this.currentUser.id)) {
                     group.push(user.id);
@@ -107,31 +115,14 @@ export default {
                 }
                 if (group.length === 4) {
                     // Update users' lunches array then persist
-                    this.users = this.users.map((user) => {
-                        if (user.id === this.currentUser.id) {
-                            return {
-                                ...user,
-                                lunches: [...user.lunches, ...group]
-                            };
-                        } else if (group.includes(user.id)) {
-                            return {
-                                ...user,
-                                lunches: [...user.lunches, ...group.filter((curr) => curr !== user.id), this.currentUser.id]
-                            };
-                        } else {
-                            return user;
-                        }
-                    });
+                    this.updateLunches(group);
                     localStorage.setItem('users', JSON.stringify(this.users));
-                    console.log(this.users.map((user) => {
-                    if (group.includes(user.id)) {
-                        return user.name
-                    }
-                }));
+                    this.selectedIds = group;
+                    this.showModal = true;
                     return;
                 }
             }
-            // Fill remaining spots with random users
+            // Fill remaining spots with random user ids
             if (group.length + availableUsers.length <= 4) {
                 for (let user of availableUsers) {
                     group.push(user.id);
@@ -146,31 +137,43 @@ export default {
                 }
             }
             if (group.length < 2) {
-                alert('Not enough people for lunch');
+                this.error = 'Not enough people to go out to lunch with';
+                this.showModal = true;
             } else {
                 // Update users' lunches array then persist
-                this.users = this.users.map((user) => {
-                    if (user.id === this.currentUser.id) {
-                        return {
-                            ...user,
-                            lunches: [...user.lunches, ...group]
-                        };
-                    } else if (group.includes(user.id)) {
-                        return {
-                            ...user,
-                            lunches: [...user.lunches, ...group.filter((curr) => curr !== user.id), this.currentUser.id]
-                        };
-                    } else {
-                        return user;
-                    }
-                });
+                this.updateLunches(group);
                 localStorage.setItem('users', JSON.stringify(this.users));
-                console.log(this.users.map((user) => {
-                    if (group.includes(user.id)) {
-                        return user.name
-                    }
-                }));
+                this.selectedIds = group;
+                this.showModal = true;
             }
+        },
+        updateLunches (group) {
+            this.users = this.users.map((user) => {
+                if (user.id === this.currentUser.id) {
+                    const idsToAdd = group.filter((id) => !user.lunches.includes(id));
+                    return {
+                        ...user,
+                        lunches:[...user.lunches, ...group.filter((id) => !user.lunches.includes(id))]
+                    };
+                } else if (group.includes(user.id)) {
+                    return {
+                        ...user,
+                        lunches: [...user.lunches, ...group.filter((curr) => curr !== user.id), this.currentUser.id],
+                        lunches: [
+                            ...user.lunches,
+                            ...group.filter((id) => id !== user.id && !user.lunches.includes(id)),
+                            ...(user.lunches.includes(this.currentUser.id) ? [] : [this.currentUser.id])
+                        ]
+                    };
+                } else {
+                    return user;
+                }
+            });
+        },
+        closeModal () {
+            this.showModal = false;
+            this.error = '';
+            this.selectedIds = [];
         }
     },
     components: {
