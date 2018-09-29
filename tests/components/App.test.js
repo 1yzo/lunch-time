@@ -1,9 +1,8 @@
 import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils'; 
-import App from '../src/App';
-import UserInput from '../src/components/UserInput';
-import UserList from '../src/components/UserList';
-import { coffeeUsers, lunchUsers } from './fixtures/users';
+import App from '../../src/App';
+import UserInput from '../../src/components/UserInput';
+import { coffeeUsers, lunchUsers } from '../fixtures/users';
 
 describe('App', () => {
     describe('No current user', () => {

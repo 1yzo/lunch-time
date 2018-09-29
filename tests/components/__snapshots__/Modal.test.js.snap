@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal renders coffee partner if idList contains only 1 id 1`] = `
+<div
+  class="modal-mask"
+  name="fade"
+>
+  <div
+    class="modal"
+  >
+    <i
+      class="fas fa-times close-button"
+    />
+     
+    <!---->
+     
+    <div>
+      Get coffee with first
+    </div>
+     
+    <!---->
+  </div>
+</div>
+`;
+
+exports[`Modal renders lunch group if idList contains multiple ids 1`] = `
+<div
+  class="modal-mask"
+  name="fade"
+>
+  <div
+    class="modal"
+  >
+    <i
+      class="fas fa-times close-button"
+    />
+     
+    <!---->
+     
+    <!---->
+     
+    <div
+      class="names-container"
+    >
+      <div
+        class="name"
+      >
+        Current User
+      </div>
+       
+      <div
+        class="name"
+      >
+        first
+      </div>
+      <div
+        class="name"
+      >
+        second
+      </div>
+      <div
+        class="name"
+      >
+        third
+      </div>
+      <div
+        class="name"
+      >
+        fourth
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal renders nothing if isVisible prop is false 1`] = `<!---->`;
