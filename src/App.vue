@@ -22,6 +22,7 @@
             @closeModal="closeModal()"
             :error="error"
             :users="users"
+            :current-user-name="currentUser && currentUser.name"
         />
     </div>
 </template>
@@ -106,7 +107,7 @@ export default {
         },
         getLunch () {
             let availableUsers = this.users.filter((user) => user.id !== this.currentUser.id);
-            const group = [];
+            const group = []; 
             // Attempt to fill group with previously unmatched user ids
             for (let user of availableUsers) {
                 if (!user.lunches.includes(this.currentUser.id)) {
@@ -122,7 +123,6 @@ export default {
                     return;
                 }
             }
-            console.log('no uniques moving on to random');
             // Fill remaining spots with random user ids
             if (group.length + availableUsers.length <= 4) {
                 for (let user of availableUsers) {
@@ -131,7 +131,6 @@ export default {
             } else {
                 while (group.length < 4) {
                     const randomIndex = Math.floor(Math.random() * ((availableUsers.length - 1) - 0 + 1) + 0);
-                    console.log(randomIndex);
                     const randomUserId = availableUsers[randomIndex].id;
                     if (!group.includes(randomUserId)) {
                         group.push(randomUserId);

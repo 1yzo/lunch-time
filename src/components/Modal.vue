@@ -7,6 +7,7 @@
                 <div v-if="error" class="error">{{ error }}</div>
                 <div v-if="names && names.length === 1">Get coffee with {{ names[0] }}</div>
                 <div v-if="names && names.length > 1" class="names-container">
+                    <div class="name">{{ currentUserName }}</div>
                     <div class="name" v-for="name in names" :key="name">{{ name }}</div>
                 </div>
             </div>
@@ -29,7 +30,8 @@ export default {
         users: {
             type: Array,
             required: true
-        }
+        },
+        currentUserName: String
     },
     created: function () {
         window.addEventListener('click', (e) => {
