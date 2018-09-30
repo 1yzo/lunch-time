@@ -1,6 +1,5 @@
 ## Getting Started
-`npm install`
-`npm start`
+`npm install` then `npm start`
 ### Tests
 `npm test`
 ## Approach
