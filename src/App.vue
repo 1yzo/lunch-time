@@ -154,15 +154,13 @@ export default {
         updateLunches (group) {
             this.users = this.users.map((user) => {
                 if (user.id === this.currentUser.id) {
-                    const idsToAdd = group.filter((id) => !user.lunches.includes(id));
                     return {
                         ...user,
-                        lunches:[...user.lunches, ...group.filter((id) => !user.lunches.includes(id))]
+                        lunches: [...user.lunches, ...group.filter((id) => !user.lunches.includes(id))]
                     };
                 } else if (group.includes(user.id)) {
                     return {
                         ...user,
-                        lunches: [...user.lunches, ...group.filter((curr) => curr !== user.id), this.currentUser.id],
                         lunches: [
                             ...user.lunches,
                             ...group.filter((id) => id !== user.id && !user.lunches.includes(id)),
