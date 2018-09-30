@@ -37,7 +37,7 @@ describe('UserListItem', () => {
     })
 
     it('correctly computes hadLunch as false', () => {
-        const wrapper = createWrapper({ user: lunchUsers[0], currentUserId: lunchUsers[6].id });
+        const wrapper = createWrapper({ user: coffeeUsers[0], currentUserId: coffeeUsers[3].id });
         expect(wrapper.vm.hadLunch).toBeFalsy();
     })
 });

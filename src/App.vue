@@ -31,6 +31,7 @@ import uuid from 'uuid/v4';
 import UserInput from './components/UserInput';
 import UserList from './components/UserList';
 import Modal from './components/Modal';
+import { shuffleArray } from './utils';
 
 export default {
     data: function() {
@@ -78,34 +79,38 @@ export default {
             }
         },
         getCoffee () {
-           const partner = this.users.find((user) => user.id !== this.currentUser.id && !this.currentUser.coffees.includes(user.id));
-           if (partner) {
-               // Add eachother's ids to respective coffees array then persist
-               this.users = this.users.map((user) => {
-                   if (user.id === this.currentUser.id) {
-                       return {
-                           ...user,
-                           coffees: [...user.coffees, partner.id]
-                       };
-                   } else if (user.id === partner.id) {
-                       return {
-                           ...user,
-                           coffees: [...user.coffees, this.currentUser.id]
-                       };
-                   } else {
-                       return user;
-                   }
-               });
-               localStorage.setItem('users', JSON.stringify(this.users));
-               this.selectedIds = [partner.id];
-               this.showModal = true;
-           } else {
-               this.error = "You've already caffeinated with everyone! Try lunch instead.";
-               this.showModal = true;
-           }
+            // Shuffle the array of users then find first unmatched user
+            const users = shuffleArray(this.users);
+            const partner = users.find((user) => user.id !== this.currentUser.id && !this.currentUser.coffees.includes(user.id));
+            if (partner) {
+                // Add eachother's ids to respective coffees array then persist
+                this.users = this.users.map((user) => {
+                    if (user.id === this.currentUser.id) {
+                        return {
+                            ...user,
+                            coffees: [...user.coffees, partner.id]
+                        };
+                    } else if (user.id === partner.id) {
+                        return {
+                            ...user,
+                            coffees: [...user.coffees, this.currentUser.id]
+                        };
+                    } else {
+                        return user;
+                    }
+                });
+                localStorage.setItem('users', JSON.stringify(this.users));
+                this.selectedIds = [partner.id];
+                this.showModal = true;
+            } else {
+                this.error = "You've already caffeinated with everyone! Try lunch instead.";
+                this.showModal = true;
+            }
         },
         getLunch () {
             let availableUsers = this.users.filter((user) => user.id !== this.currentUser.id);
+            // Shuffle the array of users
+            availableUsers = shuffleArray(availableUsers);
             const group = []; 
             // Attempt to fill group with previously unmatched user ids
             for (let user of availableUsers) {
@@ -128,11 +133,10 @@ export default {
                     group.push(user.id);
                 }
             } else {
-                while (group.length < 4) {
-                    const randomIndex = Math.floor(Math.random() * ((availableUsers.length - 1) - 0 + 1) + 0);
-                    const randomUserId = availableUsers[randomIndex].id;
-                    if (!group.includes(randomUserId)) {
-                        group.push(randomUserId);
+                for (let user of availableUsers) {
+                    group.push(user.id);
+                    if (group.length === 4) {
+                        break;
                     }
                 }
             }
