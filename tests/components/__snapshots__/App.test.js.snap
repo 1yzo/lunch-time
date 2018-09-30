@@ -28,13 +28,13 @@ exports[`App Current user exists renders correctly 1`] = `
         class="options-container"
       >
         <button
-          id="coffee"
+          class="button button--coffee"
         >
           Get Coffee
         </button>
          
         <button
-          id="lunch"
+          class="button button--lunch"
         >
           Get Lunch
         </button>

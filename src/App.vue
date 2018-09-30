@@ -10,8 +10,8 @@
             <div v-else class="content">
                 <UserList :users="users" :current-user-id="currentUser && currentUser.id"/>
                 <div class="options-container">
-                    <button id="coffee" @click="getCoffee">Get Coffee</button>
-                    <button id="lunch" @click="getLunch">Get Lunch</button>
+                    <button class="button button--coffee" @click="getCoffee">Get Coffee</button>
+                    <button class="button button--lunch" @click="getLunch">Get Lunch</button>
                 </div>
             </div>
         </div>
@@ -226,18 +226,19 @@ h1 {
         box-shadow: 0px 1px 1px $blue;
         transition: background 300ms ease-in-out;
     }
-    
-    #coffee {
-        border-bottom-left-radius: 10px;
-        &:hover {
-            background: $dark-blue;
-        }
+}
+
+.button--coffee {
+    border-bottom-left-radius: 10px;
+    &:hover {
+        background: $dark-blue;
     }
-    #lunch {
-        border-bottom-right-radius: 10px;
-        &:hover {
-            background: $dark-blue;
-        }
+}
+
+.button--lunch {
+    border-bottom-right-radius: 10px;
+    &:hover {
+        background: $dark-blue;
     }
 }
 </style>
